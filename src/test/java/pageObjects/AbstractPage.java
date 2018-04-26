@@ -8,6 +8,4 @@ public class AbstractPage extends DriverHolder{
     public AbstractPage(WebDriver driver) {
         super(driver);
     }
-
-
 }
