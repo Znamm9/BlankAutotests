@@ -3,16 +3,13 @@ package tests;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.TestRule;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,13 +20,13 @@ public class TestInit {
     private String directoryForScreenshots = "target/failureScreenshots";
     WebDriver driver;
 
-    @Before
+    @BeforeMethod
     public void setUp(){
         setupDriverExecutable();
         driver = new ChromeDriver();
     }
 
-    @After
+    @AfterMethod
     public void tearDown(){
         driver.quit();
     }
@@ -48,23 +45,6 @@ public class TestInit {
 
         }
     }
-
-    @Rule
-    public TestRule screenShot = new TestWatcher() {
-
-        @Override
-        public void succeeded(final Description description){
-            driver.close();
-            closeChromeDriverProcesses();
-        }
-
-        @Override
-        public void failed(Throwable t, Description description){
-            takeScreenshot(description.getClassName() + "_" + description.getMethodName());
-            driver.close();
-            closeChromeDriverProcesses();
-        }
-    };
 
     private void closeChromeDriverProcesses() {
         try {
@@ -87,6 +67,14 @@ public class TestInit {
             File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
             FileUtils.copyFile(scrFile, file);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void wait(int sec){
+        try {
+            Thread.sleep(sec*1000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

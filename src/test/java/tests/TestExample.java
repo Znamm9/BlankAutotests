@@ -1,13 +1,15 @@
 package tests;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 import pageObjects.BlankPage;
 
 public class TestExample extends TestInit {
 
     @Test
     public void testRun(){
-        BlankPage home = new BlankPage(driver);
-        home.goToGoogle();
+        for (int a = 0; a<40; a++){
+            wait(1);
+            System.out.println("test 1");
+        }
     }
 }

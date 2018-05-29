@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="FirstSuite" verbose="1" parallel="methods" thread-count="3" >
+    <test name="MyTests" >
+        <packages>
+            <package name="tests"/>
+        </packages>
+    </test>
+</suite>
+
